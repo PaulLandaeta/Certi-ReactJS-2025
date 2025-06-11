@@ -25,7 +25,7 @@
     },
     {
       "id": "6370f6fd-c0aa-47f2-8739-c9d3268f60fa",
-      "name": "Proyecto X",
+      "name": "Proyecto y",
       "description": "Descripción del Proyecto X",
       "owner": "1",
       "date": "2025-06-05T22:30:38.727Z"
@@ -39,10 +39,17 @@
     },
     {
       "id": "b3a9d084-5faa-427d-bcaf-b377ef9450dd",
-      "name": "Proyecto Z ",
+      "name": "Proyecto Z d",
       "description": "Descripción del Proyecto Z",
       "owner": "1",
       "date": "2025-06-06T20:58:39.605Z"
+    },
+    {
+      "id": "70b35f6d-c29f-40d2-802b-04c6f597dfd0",
+      "name": "sdfsdfsdfdsfdfsd",
+      "owner": "1",
+      "description": "sdfsdfsdfdsfdfsd",
+      "date": "2025-06-11T16:11:49.098Z"
     }
   ]
 }
