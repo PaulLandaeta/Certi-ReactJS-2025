@@ -14,7 +14,7 @@ import {
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { memo, useCallback, useMemo, useState } from "react";
+import { useState } from "react";
 import type { Project } from "../interfaces/projectInterface";
 
 interface CustomCardProps {
@@ -26,15 +26,6 @@ interface CustomCardProps {
   editProject: () => void;
 }
 
-const ButtonIncrement = memo(({ setStudents }) => {
-  console.log("Estoy aca en el botoncito :o ");
-  return (
-    <>
-      <Button onClick={() => setStudents([2,4])}> Soy Yo</Button>
-    </>
-  );
-});
-
 export const CustomCard = ({
   title,
   description,
@@ -44,11 +35,7 @@ export const CustomCard = ({
 }: CustomCardProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const [increment, setIncrement] = useState<number>(0);
 
-  const setDecrement = useCallback(() => {
-    setIncrement((prevState) => prevState - 1);
-  }, []);
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
@@ -57,16 +44,6 @@ export const CustomCard = ({
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-
-  const [ students, setStudents] = useState([2, 3, 4, 6, 10, 0, 1]);
-  const initialValue = 0;
-  const promedio = useMemo(
-    ( ()=> { students.reduce((accumulator, currentValue) => {
-      console.log(accumulator);
-      return accumulator + currentValue;
-    }, initialValue)}),
-    [students]
-  );
 
   return (
     <Card
@@ -162,24 +139,6 @@ export const CustomCard = ({
           >
             Ver Proyecto
           </Button>
-
-          <Button
-            variant="contained"
-            size="small"
-            color="primary"
-            onClick={() => {
-              setIncrement((prevState) => prevState + 1);
-            }}
-            sx={{
-              borderRadius: 2,
-              textTransform: "none",
-              fontWeight: "bold",
-              px: 3,
-            }}
-          >
-            Incrementar
-          </Button>
-          <ButtonIncrement setStudents={setStudents} />
         </Box>
       </CardContent>
     </Card>

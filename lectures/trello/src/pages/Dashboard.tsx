@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { CustomCard } from "../components/Card";
 import { CustomDialogs } from "../components/Dialog";
+import { useTranslation } from "react-i18next";
 
 import AddIcon from "@mui/icons-material/Add";
 
@@ -23,15 +24,16 @@ function DashboardPage() {
     openDialogHandler,
     goToProject,
     editProjectHandler,
-    project
+    project,
   } = useProjects();
+  const { t } = useTranslation();
   return (
     <Container maxWidth="lg">
       <CustomDialogs
         title={
           project
-            ? "Editar Proyecto"
-            : "Agregar Proyecto"
+            ? t("dashboard.updateCustomDialog")
+            : t("dashboard.createCustomDialog")
         }
         open={openDialog}
         onClose={closeDialogHandler}
@@ -57,7 +59,7 @@ function DashboardPage() {
         mb={4}
       >
         <Typography variant="h6" fontWeight="bold">
-          Mis Proyectos
+          {t("dashboard.title")}
         </Typography>
 
         <Button
@@ -66,7 +68,7 @@ function DashboardPage() {
           startIcon={<AddIcon />}
           onClick={openDialogHandler}
         >
-          Agregar Proyecto
+          {t("dashboard.addButton")}
         </Button>
       </Box>
 
@@ -93,7 +95,7 @@ function DashboardPage() {
             </Grid>
           ))
         ) : (
-          <p>No hay proyectos disponibles</p>
+          <p>{t("dashboard.noneProjects")}</p>
         )}
       </Grid>
     </Container>

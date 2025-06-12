@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -7,8 +7,28 @@ import { useTranslation } from "react-i18next";
 import { useAuthStore } from "../store/authStore";
 import { login as loginService } from "../services/authService";
 
+const initialUser = {
+  name: "",
+  last_name: "",
+};
+
+export const userReducer = (
+  state: { name: string; last_name: string },
+  action: any
+) => {
+  switch (action.type) {
+    case "LOGIN":
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
 export const useLogin = () => {
   const navigate = useNavigate();
+
+  const [user, dispatch] = useReducer(userReducer, initialUser);
+
   const { t } = useTranslation();
   const [loginError, setLoginError] = useState(false);
   const login = useAuthStore((state) => state.login);
@@ -20,7 +40,7 @@ export const useLogin = () => {
       .required(t("login.requiredEmail")),
     password: yup
       .string()
-      .min(6,t("login.invalidPassword") )
+      .min(6, t("login.invalidPassword"))
       .required(t("login.requiredPassword")),
   });
 
@@ -37,6 +57,7 @@ export const useLogin = () => {
         formik.resetForm();
         return;
       }
+      dispatch({type:'LOGIN', payload: {name: 'Paul', last_name: 'Landaeta'}});
       login(responseLogin);
       navigate("/app/dashboard", {
         replace: true,
