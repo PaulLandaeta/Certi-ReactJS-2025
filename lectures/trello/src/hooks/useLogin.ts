@@ -6,29 +6,14 @@ import { useTranslation } from "react-i18next";
 
 import { useAuthStore } from "../store/authStore";
 import { login as loginService } from "../services/authService";
+import { useAuthReducer } from "../contexts/AuthReducerContext";
 
-const initialUser = {
-  name: "",
-  last_name: "",
-};
 
-export const userReducer = (
-  state: { name: string; last_name: string },
-  action: any
-) => {
-  switch (action.type) {
-    case "LOGIN":
-      return { ...state, ...action.payload };
-    default:
-      return state;
-  }
-};
+
 
 export const useLogin = () => {
   const navigate = useNavigate();
-
-  const [user, dispatch] = useReducer(userReducer, initialUser);
-
+  const { dispatch } = useAuthReducer();
   const { t } = useTranslation();
   const [loginError, setLoginError] = useState(false);
   const login = useAuthStore((state) => state.login);

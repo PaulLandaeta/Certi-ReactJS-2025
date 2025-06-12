@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import type { Project } from "../interfaces/projectInterface";
 import { useAuthStore } from "../store/authStore";
 import { useProjectsStore } from "../store/useProjectsStore";
+import { useAuthReducer } from "../contexts/AuthReducerContext";
 
 const projectSchema = Yup.object({
   projectName: Yup.string().required("El nombre del proyecto es requerido"),
@@ -15,6 +16,9 @@ const projectSchema = Yup.object({
 export const useProjects = () => {
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
+  const { user: userFromReducer } = useAuthReducer();
+  
+  console.log('fromReducer', userFromReducer);
   const {
     fetchProjects,
     removeProject,
