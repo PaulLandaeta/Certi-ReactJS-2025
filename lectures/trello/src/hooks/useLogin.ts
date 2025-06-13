@@ -7,16 +7,17 @@ import { useTranslation } from "react-i18next";
 import { useAuthStore } from "../store/authStore";
 import { login as loginService } from "../services/authService";
 import { useAuthReducer } from "../contexts/AuthReducerContext";
-
-
-
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store/authStoreRedux";
+import { loginRedux } from "../slices/userSlice";
 
 export const useLogin = () => {
   const navigate = useNavigate();
-  const { dispatch } = useAuthReducer();
+  const { dispatch: dispatchAuth } = useAuthReducer();
   const { t } = useTranslation();
   const [loginError, setLoginError] = useState(false);
   const login = useAuthStore((state) => state.login);
+  const dispatch = useDispatch<AppDispatch>();
 
   const loginSchema = yup.object({
     email: yup
@@ -42,7 +43,11 @@ export const useLogin = () => {
         formik.resetForm();
         return;
       }
-      dispatch({type:'LOGIN', payload: {name: 'Paul', last_name: 'Landaeta'}});
+      dispatch(loginRedux(responseLogin));
+      dispatchAuth({
+        type: "LOGIN",
+        payload: { name: "Paul", last_name: "Landaeta" },
+      });
       login(responseLogin);
       navigate("/app/dashboard", {
         replace: true,
