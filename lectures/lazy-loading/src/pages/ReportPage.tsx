@@ -1,8 +1,14 @@
-const ReportPage = () => {
-  throw new Error("Ups Salio algo mal");
+const ReportPage = ({ className, message, ...rest }) => {
+  const styles = {
+    text: "size:2",
+  };
   return (
     <>
-      <h1> Soy el ReportPage </h1>
+      <button
+        className={`${styles.text} ${className}`} {...rest}
+      >
+        {message}
+      </button>
     </>
   );
 };
